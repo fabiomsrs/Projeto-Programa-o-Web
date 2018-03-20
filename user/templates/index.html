@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1> Login </h1>
+	 <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" name="action" class="waves-effect waves-light btn">Sign in</button> 
+    </form>
+</body>
+</html>
