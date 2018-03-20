@@ -11,6 +11,7 @@ class Livro(models.Model):
         ('excelente', 'Excelente')
     )
 
+	foto = models.ImageField(upload_to='img/', null=True)
 	titulo = models.CharField(max_length=45)
 	autor = models.CharField(max_length=75)
 	edicao = models.CharField(max_length=10)
@@ -50,8 +51,7 @@ class Transacao(models.Model):
 
 class Anuncio(models.Model):
 	livro = models.OneToOneField('Livro', on_delete=models.CASCADE,related_name='meu_anuncio')
-	data_anuncio = models.DateTimeField(auto_now=True)
-	foto = models.ImageField(upload_to='img/')
+	data_anuncio = models.DateTimeField(auto_now=True)	
 	is_ativo = models.BooleanField(default=True)
 
 	@property

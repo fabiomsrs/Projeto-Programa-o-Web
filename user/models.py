@@ -20,4 +20,5 @@ class Usuario(AbstractUser):
 	def save(self, *args, **kwargs):	
 		if not self.has_usable_password():	
 			self.set_password(self.password)  # password encryption
+		self.username = self.email
 		super(Usuario, self).save()

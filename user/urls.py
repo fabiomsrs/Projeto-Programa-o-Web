@@ -22,4 +22,5 @@ app_name='user'
 
 urlpatterns = [
     path('login/', views.Login.as_view(),name='login'),
+    path('create_user/', views.CadastroUsuario.as_view(),name='cadastro_usuario'),
     ]

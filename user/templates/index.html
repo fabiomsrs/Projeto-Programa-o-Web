@@ -8,7 +8,8 @@
 	 <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit" name="action" class="waves-effect waves-light btn">Sign in</button> 
+        <button >Sign in</button> 
+        <a href="{% url 'user:cadastro_usuario' %}">cadastro</a>
     </form>
 </body>
 </html>
