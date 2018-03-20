@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1> Cadastro </h1>
+	 <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" name="action" class="waves-effect waves-light btn">Cadastrar</button> 
+    </form>
+    
+    {% if form.subject.errors %}
+    <ol>
+    {% for error in form.subject.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+    {% endfor %}
+    </ol>
+	{% endif %}
+</body>
+</html>
