@@ -11,7 +11,7 @@ class Livro(models.Model):
         ('excelente', 'Excelente')
     )
 
-	foto = models.ImageField(upload_to='img/', null=True)
+	foto = models.ImageField(upload_to='img/', null=True, blank = True)
 	titulo = models.CharField(max_length=45)
 	autor = models.CharField(max_length=75)
 	edicao = models.CharField(max_length=10)
@@ -19,6 +19,10 @@ class Livro(models.Model):
 	nivel_conservacao = models.CharField(max_length=45, choices=NIVEL_CONSERVACAO)
 	dono = models.ForeignKey('user.Usuario', on_delete=models.CASCADE,related_name='meus_livros')
 	is_doacao = models.BooleanField(default=True)
+
+	def save(self):
+		super(Livro, self).save()
+		Anuncio.objects.create(livro=self)
 
 
 class Transacao(models.Model):
