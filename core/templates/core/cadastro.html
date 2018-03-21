@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<h1> Cadastro Usuarios </h1>
-	 <form method="POST">
+{% extends './base.html' %}
+{% load bootstrap %}
+{% block content %}
+	<h1> Cadastro de Livros</h1>
+	 <form method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
-        {{form.as_p}}
+        {{form|bootstrap}}
         <button type="submit" name="action" class="waves-effect waves-light btn">Cadastrar</button> 
     </form>
     
@@ -18,5 +15,4 @@
     {% endfor %}
     </ol>
 	{% endif %}
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends './base.html' %}
+{% load bootstrap %}
+{% block content %}
+	<form method="get">
+    {{ anuncio_filter.form|bootstrap }}
+    <button type="submit">Search</button>
+  </form>
+	<h1> Anuncios </h1>
+{% endblock %}

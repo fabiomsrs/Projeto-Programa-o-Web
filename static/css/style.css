@@ -12,8 +12,12 @@ nav a {
     color: black;
 }
 aside {
-    padding: 20px 80px 60px 80px;
+    padding: 20px 80px 60px 10px;
     background-color: white;
+}
+
+aside p{
+    padding-left: 22px;
 }
 
 header h1 {
