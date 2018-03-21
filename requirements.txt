@@ -1,4 +1,6 @@
 Django==2.0.3
+django-bootstra
+django-filter==
 Pillow==5.0.0
 psycopg2==2.7.4
 pytz==2018.3
