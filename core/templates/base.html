@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+	<link rel="stylesheet" href="{% static "css/style.css" %}" >
+</head>
+<body>
+   <div class="container">
+        <header class="row">
+            <nav class="row">
+                <a href="#"><b>Home</b></a>
+                <a href="#"><b>Cadatrar Livro</b></a>
+                <a href="{% url 'user:cadastro_usuario' %}"><b>Cadatre-se</b></a>                
+            </nav>
+
+            <aside class="row">
+                <h1> Desapega Livro </h1>
+                <p>O objetivo da nossa plataforma é ajudar as pessoas...</p>
+            </aside>
+
+
+        </header>
+        <main class="row">
+            
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+        <footer class="row">
+            <h4>Obrigado pela visita!</h4>
+            <span class="glyphicon glyphicon-camera"> @_quasecriativa</span>
+        </footer>
+
+    </div>
+</html>
