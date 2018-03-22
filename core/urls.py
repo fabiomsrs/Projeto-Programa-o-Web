@@ -25,4 +25,6 @@ urlpatterns = [
     path('cadastro_livro/', views.CadastroLivro.as_view(),name='cadastro_livro'),
     path('detalhe_livro/<int:livro_id>', views.DetalheLivro.as_view(),name='detalhe_livro'),
     path('adquirir_livro/<int:livro_id>', views.AdquirirLivro.as_view(),name='adquirir_livro'),
+    path('livro_requisitados/', views.LivrosRequisitados.as_view(),name='livros_requisitados'),
+    path('recusar_requerimento/<int:livro_id>', views.RecusarRequerimento.as_view(),name='recusar_requerimento'),
     ]

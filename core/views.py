@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from .forms import FormLivro
 from .forms import AnuncioFilter
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Anuncio, Livro
+from .models import Anuncio, Livro, Transacao
 
 # Create your views here.
 class Home(View):
@@ -60,8 +60,32 @@ class DetalheLivro(View):
 
 class AdquirirLivro(LoginRequiredMixin, View):
 	login_url = reverse_lazy('user:login')
+
 	def get(self, request, *args, **kwargs):
 		livro_id = self.kwargs['livro_id']
 		request.user.adquirir_livro_doado(livro_id)
 
 		return redirect('core:home')
+
+
+class LivrosRequisitados(LoginRequiredMixin, View):
+	login_url = reverse_lazy('user:login')
+
+	def get(self, request, *args, **kwargs):
+		livros = Livro.objects.filter(dono=request.user).filter(meu_anuncio__is_ativo=False)
+
+		return render(request,'core/livros_requeridos.html',{'livros':livros})
+
+
+class RecusarRequerimento(LoginRequiredMixin, View):
+	login_url = reverse_lazy('user:login')
+
+	def get(self, request, *args, **kwargs):
+		livro = Livro.objects.get(pk=kwargs['livro_id'])
+
+		livro.meu_anuncio.is_ativo = True
+		livro.save()
+		# livro.minha_transacao.delete()
+
+
+		return redirect('core:livros_requisitados')

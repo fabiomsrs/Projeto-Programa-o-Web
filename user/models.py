@@ -8,12 +8,7 @@ class Usuario(AbstractUser):
 	email = models.EmailField(null=True, verbose_name='E-mail')	
 
 	def adquirir_livro_doado(self, livro):		
-		livro = Livro.objects.get(pk=livro)
-		
-		if livro.dono == self:
-			if self.is_anonymous():
-				raise Exception('Usuario não logado')	
-			raise Exception('Você não pode adquirir o proprio livro')
+		livro = Livro.objects.get(pk=livro)		
 
 		Transacao.objects.create(emissor=livro.dono,receptor=self,livro=livro)
 		anuncio = Anuncio.objects.get(livro=livro)

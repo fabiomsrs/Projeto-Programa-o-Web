@@ -25,13 +25,13 @@ class Livro(models.Model):
 
 	def save(self):
 		super(Livro, self).save()
-		Anuncio.objects.create(livro=self)
+		if not Anuncio.objects.filter(livro=self):			
+			Anuncio.objects.create(livro=self)
 	
 		if not self.foto:
 		    return None 		
 
 		image = Image.open(self.foto)		
-
 		size = (250,250)
 		image = image.resize(size, Image.ANTIALIAS)
 		image.save(self.foto.path)
@@ -42,6 +42,10 @@ class Transacao(models.Model):
 	receptor = models.ForeignKey('user.Usuario', on_delete=models.CASCADE,related_name='livros_adiquiridos')
 	livro = models.OneToOneField('Livro', on_delete=models.CASCADE,related_name='minha_transacao')	
 	data_transacao = models.DateField(auto_now=True)
+
+	def checar_usuario_dono(self):
+		if self.livro.dono == self.receptor:			
+			raise Exception('Você não pode adquirir o proprio livro')
 
 	def checar_livro(self):
 		#checar se o livro ja foi doado ou trocado
@@ -58,6 +62,7 @@ class Transacao(models.Model):
 		super(Transacao, self).clean()
 		self.checar_livro()
 		self.checar_usuario_receptor()
+		self.checar_usuario_dono()
 
 	def save(self, **kwargs):
 		self.clean()

@@ -7,7 +7,7 @@
 			<ul class="list-group">		
 				<li class="list-group-item">
 					{% if livro.foto%}
-					<img src="{{livro.foto.url}}">
+					<img src="/{{livro.foto.url}}">
 					{% else%}
 					<img src="{% static "img/not_found.png" %}" alt="not found"/>
 					{% endif %}

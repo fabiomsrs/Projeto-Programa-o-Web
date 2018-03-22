@@ -1,0 +1,30 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}	
+	<h2>Meus livro requeridos</h2>
+	<div class="row">			
+		
+		<div class="col-md-3">			
+			<ul class="list-group">		
+				{% for livro in livros%}
+					<li class="list-group-item">
+						<p><strong>Titulo: </strong>{{livro.titulo}}</p>
+						<p><strong>Requeridor: </strong>{{livro.minha_transacao.receptor}}</p>
+						<a href="{% url 'core:recusar_requerimento' livro_id=livro.pk%}" class="btn btn-default">Recusar requerimento</a> 
+					</li>									
+				{% empty %}
+				<h4>Nenhum livro foi requisitado</h4>
+				{% endfor %}
+			</ul>
+		</div>
+
+
+	</div>
+	<div class="row">
+		<div class="col-md-4">			
+		</div>
+	</div>	
+		
+
+
+{% endblock %}
