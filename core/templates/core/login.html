@@ -2,13 +2,15 @@
 {% load bootstrap %}
 <html>
 <head>
+	<link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+	<link rel="stylesheet" href="{% static "css/style.css" %}" >
 	<title></title>
 </head>
 <body>
 	<form method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
         {{form|bootstrap}}
-        <button type="submit" name="action" class="waves-effect waves-light btn">Entrar</button> 
+        <button type="submit" name="action" class="btn btn-default">Entrar</button> 
     </form>
 </body>
 </html>

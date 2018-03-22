@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.core.paginator import Paginator
 from .forms import FormLivro
 from .forms import AnuncioFilter
 from .models import Anuncio
@@ -8,8 +9,21 @@ from .models import Anuncio
 class Home(View):
 	def get(self,request):
 		list_anuncio = Anuncio.objects.all()
+		
+		#campo de busca
 		anuncio_filter = AnuncioFilter(request.GET, queryset=list_anuncio)
-		return render(request, "core/home.html", {'anuncio_filter':anuncio_filter})
+		
+		#paginação
+		paginator = Paginator(anuncio_filter.qs, 2)
+		page = request.GET.get('page')        
+		lista = paginator.get_page(page)
+		index = lista.number - 1
+		max_index = len(paginator.page_range)
+		start_index = index - 3 if index >= 3 else 0
+		end_index = index + 3 if index <= max_index - 3 else max_index
+		page_range = list(paginator.page_range)[start_index:end_index]
+
+		return render(request, "core/home.html", {'anuncio_filter':anuncio_filter, 'page_range':page_range, 'anuncio_lista':lista})
 	
 class CadastroLivro(View):
 	def get(self, request):

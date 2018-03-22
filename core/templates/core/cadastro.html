@@ -5,7 +5,7 @@
 	 <form method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
         {{form|bootstrap}}
-        <button type="submit" name="action" class="waves-effect waves-light btn">Cadastrar</button> 
+        <button type="submit" name="action" class="btn btn-default">Cadastrar</button> 
     </form>
     
     {% if form.subject.errors %}

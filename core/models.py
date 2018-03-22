@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from PIL import Image
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Livro(models.Model):
         ('excelente', 'Excelente')
     )
 
-	foto = models.ImageField(upload_to='img/', null=True, blank = True)
+	foto = models.ImageField(upload_to='static/img', null=True, blank = True)
 	titulo = models.CharField(max_length=45)
 	autor = models.CharField(max_length=75)
 	edicao = models.CharField(max_length=10)
@@ -20,9 +21,21 @@ class Livro(models.Model):
 	dono = models.ForeignKey('user.Usuario', on_delete=models.CASCADE,related_name='meus_livros')
 	is_doacao = models.BooleanField(default=True)
 
+	def __str__(self):
+		return self.titulo
+
 	def save(self):
 		super(Livro, self).save()
 		Anuncio.objects.create(livro=self)
+
+		if not self.id and not self.photo:
+		    return            		
+
+		image = Image.open(self.foto)		
+
+		size = (250,250)
+		image = image.resize(size, Image.ANTIALIAS)
+		image.save(self.foto.path)
 
 
 class Transacao(models.Model):

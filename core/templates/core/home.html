@@ -1,9 +1,58 @@
 {% extends './base.html' %}
+{% load static %}
 {% load bootstrap %}
 {% block content %}
 	<form method="get">
     {{ anuncio_filter.form|bootstrap }}
-    <button type="submit">Search</button>
+    <button class="btn btn-default" type="submit">Search</button>
   </form>
 	<h1> Anuncios </h1>
+
+	<!-- Lista de Anuncios -->
+	<div class="row">	
+		<ul class="list-group">
+			{% for anuncio in anuncio_lista %}		
+				{% if anuncio.is_ativo %}					
+
+				<li class="list-group-item">
+				<div class="row">
+					{% if anuncio.livro.foto %}
+					<div class="col-md-6"> <img src="{{anuncio.livro.foto.url}}"> </div>
+					{% else %}
+					<div class="col-md-6"> <img src="{% static "img/not_found.png" %}" alt="not found"/> </div>
+					{% endif %}
+					<div class="col-md-4"><p> {{anuncio.livro}} </p> <p> {{anuncio.livro.dono}}	</p> </div>					
+				</div>
+				
+				</li>
+
+				{% endif %}
+			{% endfor %}
+		</ul>
+
+		<!-- Paginação -->
+		<ul class="col-xs-6 col-sm-3 list-inline">
+		<div class="pagination">				
+		    <span class="step-links">                                                                     
+		        {% if anuncio_lista.has_previous%}
+		            <li><a href="?page={{ anuncio_lista.previous_page_number }}"><i class="material-icons"> &laquo;	</i></a></li>
+		        {% endif %}                                    
+		        
+		        {%for page in page_range%}
+		            {% if page == anuncio_lista.number %}                                    
+		                <li><a href="?page={{page}}" class="active">{{page}}</a></li>
+		            {% else %}
+		                <li><a href="?page={{page}}">{{page}}</a></li>
+		            {% endif %}
+		        {%endfor%}                                
+
+		        {% if anuncio_lista.has_next%}
+
+		            <li ><a href="?page={{ anuncio_lista.next_page_number }}"><i class="material-icons"> &raquo; </i></a></li>
+		        {% endif %}   
+		    </span>                                 
+	    </div>
+		</ul>
+    </div>
+
 {% endblock %}

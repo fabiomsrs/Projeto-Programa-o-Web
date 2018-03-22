@@ -36,6 +36,14 @@ footer {
     background-color: white;
 }
 
+.list-group-item p {
+    padding-top: 5px;
+}
+
+ul.list-inline li {
+    display: inline;
+}
+
 .home, .name {
     color: white;
 }
@@ -47,3 +55,20 @@ footer {
 .disabled {
     color: #5e5e5e;
 }
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+/* Style the active/current link */
+.pagination a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {background-color: #ddd;}
