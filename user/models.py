@@ -11,7 +11,7 @@ class Usuario(AbstractUser):
 		livro = Livro.objects.get(pk=livro)
 		
 		if livro.dono == self:
-			if self.is_anonymous():
+			if self.is_anonymous:
 				raise Exception('Usuario não logado')	
 			raise Exception('Você não pode adquirir o proprio livro')
 
