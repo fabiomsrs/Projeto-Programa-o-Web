@@ -9,6 +9,12 @@ class Usuario(AbstractUser):
 
 	def adquirir_livro_doado(self, livro):		
 		livro = Livro.objects.get(pk=livro)
+		
+		if livro.dono == self:
+			if self.is_anonymous():
+				raise Exception('Usuario não logado')	
+			raise Exception('Você não pode adquirir o proprio livro')
+
 		Transacao.objects.create(emissor=livro.dono,receptor=self,livro=livro)
 		anuncio = Anuncio.objects.get(livro=livro)
 		anuncio.is_ativo = False

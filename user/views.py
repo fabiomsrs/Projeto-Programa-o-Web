@@ -11,7 +11,7 @@ class Login(View):
 		form = AuthenticationForm()
 		return render(request, "core/login.html", {'form':form})
 
-	def post(self, request):
+	def post(self, request):		
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)

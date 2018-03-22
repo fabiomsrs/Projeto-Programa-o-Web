@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 from .forms import FormLivro
 from .forms import AnuncioFilter
@@ -28,7 +29,7 @@ class Home(View):
 
 	
 class CadastroLivro(LoginRequiredMixin, View):
-	login_url = 'user/login/'
+	login_url = reverse_lazy('user:login')
 
 	def get(self, request):
 		form = FormLivro()	
@@ -57,7 +58,8 @@ class DetalheLivro(View):
 		return render(request, "core/detalhe_livro.html", {'livro':livro})
 
 
-class AdquirirLivro(View):
+class AdquirirLivro(LoginRequiredMixin, View):
+	login_url = reverse_lazy('user:login')
 	def get(self, request, *args, **kwargs):
 		livro_id = self.kwargs['livro_id']
 		request.user.adquirir_livro_doado(livro_id)

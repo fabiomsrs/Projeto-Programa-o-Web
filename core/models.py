@@ -49,11 +49,10 @@ class Transacao(models.Model):
 			raise ValidationError('Livro ja negociado')	
 
 	def checar_usuario_receptor(self):
-		#checar se o usuario recebeu 3 doações no mês se sim, raise execption
-		if self.livro.is_doacao:
-			if Transacao.objects.filter(receptor=self.receptor).filter(data_transacao__month=
-				datetime.now().month).filter(data_transacao__year=datetime.now().year).count() >= 3:
-				raise ValidationError('Ja recebeu 3 doações de livros esse mês')		
+		#checar se o usuario recebeu 3 doações no mês se sim, raise execption		
+		if Transacao.objects.filter(receptor=self.receptor).filter(data_transacao__month=
+			datetime.now().month).filter(data_transacao__year=datetime.now().year).count() >= 3:
+			raise ValidationError('Ja recebeu 3 doações de livros esse mês')		
 
 	def clean(self):		
 		super(Transacao, self).clean()
