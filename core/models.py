@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from datetime import datetime
 from PIL import Image
 
@@ -55,8 +56,8 @@ class Transacao(models.Model):
 	def checar_usuario_receptor(self):
 		#checar se o usuario recebeu 3 doações no mês se sim, raise execption		
 		if Transacao.objects.filter(receptor=self.receptor).filter(data_transacao__month=
-			datetime.now().month).filter(data_transacao__year=datetime.now().year).count() >= 3:
-			raise ValidationError('Ja recebeu 3 doações de livros esse mês')		
+			datetime.now().month).filter(data_transacao__year=datetime.now().year).count() >= (3 + self.receptor.livros_doado_no_mes()):
+			raise ValidationError('Ja recebeu mais doações de livros do que o permitido esse mês')		
 
 	def clean(self):		
 		super(Transacao, self).clean()
