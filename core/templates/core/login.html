@@ -8,10 +8,24 @@
 	<title></title>
 </head>
 <body>
-	<form method="POST" enctype='multipart/form-data'>
-        {% csrf_token %}
-        {{form|bootstrap}}
-        <button type="submit" name="action" class="btn btn-default">Entrar</button> 
-    </form>
+	<div class="container center">
+		<form class="px-4 py-3" id="login">
+			<div class="form-group">
+			    <label for="email">Email</label>
+			    <input type="email" class="form-control" id="email" placeholder="email@example.com">
+			</div>
+			<div class="form-group">
+		    	<label for="password">Password</label>
+		    	<input type="password" class="form-control" id="password" placeholder="Password">
+			</div>
+		<div class="dropdown-divider"></div>
+	  		<a class="dropdown-item" href="{% url 'user:cadastro_usuario' %}">Cadastre-se</a>
+			<button type="submit" name="action" class="btn btn-primary">Entrar</button>
+		</form>
+	</div>
+
+
+
+
 </body>
 </html>
