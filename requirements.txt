@@ -1,5 +1,5 @@
 Django==2.0.3
-django-bootstra
+django-bootstrap-form==3.4
 django-filter==
 Pillow==5.0.0
 psycopg2==2.7.4
