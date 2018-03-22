@@ -28,7 +28,7 @@ class Livro(models.Model):
 		super(Livro, self).save()
 		Anuncio.objects.create(livro=self)
 
-		if not self.id and not self.photo:
+		if not self.id and not self.foto:
 		    return            		
 
 		image = Image.open(self.foto)		
