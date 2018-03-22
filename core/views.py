@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from .forms import FormLivro
 from .forms import AnuncioFilter
 from .models import Anuncio
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class Home(View):
@@ -24,8 +25,11 @@ class Home(View):
 		page_range = list(paginator.page_range)[start_index:end_index]
 
 		return render(request, "core/home.html", {'anuncio_filter':anuncio_filter, 'page_range':page_range, 'anuncio_lista':lista})
+
 	
-class CadastroLivro(View):
+class CadastroLivro(LoginRequiredMixin, View):
+	login_url = 'user/login/'
+
 	def get(self, request):
 		form = FormLivro()	
 		return render(request, "core/cadastro.html", {'form':form})
