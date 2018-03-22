@@ -1,0 +1,38 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}	
+	<h2>Detalhes</h2>
+	<div class="row">
+		<div class="col-md-4">
+			<ul class="list-group">		
+				<li class="list-group-item">
+					{% if livro.foto%}
+					<img src="{{livro.foto.url}}">
+					{% else%}
+					<img src="{% static "img/not_found.png" %}" alt="not found"/>
+					{% endif %}
+				</li>				
+			</ul>
+		</div>			
+	
+
+		<div class="col-md-3">
+			<ul class="list-group">		
+				<li class="list-group-item">
+					<strong>Titulo:</strong> {{livro.titulo}}					
+				</li>
+				<li class="list-group-item">			
+					<strong>Contato:</strong> {{livro.dono.email}}
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<a href="{% url 'core:adquirir_livro' livro_id=livro.pk %}" class="btn btn-default">Adquirir Livro</a> 
+		</div>
+	</div>	
+		
+
+
+{% endblock %}

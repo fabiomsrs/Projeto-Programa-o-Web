@@ -23,4 +23,6 @@ app_name='core'
 urlpatterns = [
     path('', views.Home.as_view(),name='home'),
     path('cadastro_livro/', views.CadastroLivro.as_view(),name='cadastro_livro'),
+    path('detalhe_livro/<int:livro_id>', views.DetalheLivro.as_view(),name='detalhe_livro'),
+    path('adquirir_livro/<int:livro_id>', views.AdquirirLivro.as_view(),name='adquirir_livro'),
     ]

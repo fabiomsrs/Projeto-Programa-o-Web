@@ -3,12 +3,12 @@ from django.views import View
 from django.core.paginator import Paginator
 from .forms import FormLivro
 from .forms import AnuncioFilter
-from .models import Anuncio
+from .models import Anuncio, Livro
 
 # Create your views here.
 class Home(View):
 	def get(self,request):
-		list_anuncio = Anuncio.objects.all()
+		list_anuncio = Anuncio.objects.filter(is_ativo=True)
 		
 		#campo de busca
 		anuncio_filter = AnuncioFilter(request.GET, queryset=list_anuncio)
@@ -41,5 +41,21 @@ class CadastroLivro(View):
 			livro.save()
 		else:		
 			return render(request, "core/cadastro.html", {'form':form})
+
+		return redirect('core:home')
+
+
+class DetalheLivro(View):
+	def get(self, request, *args, **kwargs):
+		livro_id = self.kwargs['livro_id']
+		livro = Livro.objects.get(pk=livro_id)
+
+		return render(request, "core/detalhe_livro.html", {'livro':livro})
+
+
+class AdquirirLivro(View):
+	def get(self, request, *args, **kwargs):
+		livro_id = self.kwargs['livro_id']
+		request.user.adquirir_livro_doado(livro_id)
 
 		return redirect('core:home')

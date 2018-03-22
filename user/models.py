@@ -1,15 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from core.models import Transacao, Livro
+from core.models import Transacao, Livro, Anuncio
 # Create your models here.
 
 class Usuario(AbstractUser):
 	telefone = models.CharField(max_length=14, verbose_name='Celular')
 	email = models.EmailField(null=True, verbose_name='E-mail')	
 
-	def adiquirir_livro_doado(self, livro):
+	def adquirir_livro_doado(self, livro):		
 		livro = Livro.objects.get(pk=livro)
 		Transacao.objects.create(emissor=livro.dono,receptor=self,livro=livro)
+		anuncio = Anuncio.objects.get(livro=livro)
+		anuncio.is_ativo = False
+		anuncio.save()
 
 	def full_name(self):
 		return self.__str__()
