@@ -18,8 +18,7 @@ class Livro(models.Model):
 	edicao = models.CharField(max_length=10)
 	genero = models.ManyToManyField('Genero')
 	nivel_conservacao = models.CharField(max_length=45, choices=NIVEL_CONSERVACAO)
-	dono = models.ForeignKey('user.Usuario', on_delete=models.CASCADE,related_name='meus_livros')
-	is_doacao = models.BooleanField(default=True)
+	dono = models.ForeignKey('user.Usuario', on_delete=models.CASCADE,related_name='meus_livros')	
 
 	def __str__(self):
 		return self.titulo
@@ -27,9 +26,9 @@ class Livro(models.Model):
 	def save(self):
 		super(Livro, self).save()
 		Anuncio.objects.create(livro=self)
-
-		if not self.id and not self.foto:
-		    return            		
+	
+		if not self.foto:
+		    return None 		
 
 		image = Image.open(self.foto)		
 

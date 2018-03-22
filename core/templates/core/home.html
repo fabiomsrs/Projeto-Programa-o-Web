@@ -21,7 +21,18 @@
 					{% else %}
 					<div class="col-md-6"> <img src="{% static "img/not_found.png" %}" alt="not found"/> </div>
 					{% endif %}
-					<div class="col-md-4"><p> {{anuncio.livro}} </p> <p> {{anuncio.livro.dono}}	</p> </div>					
+					<div class="col-md-4">
+						
+						<p>
+							<h4> <strong>Titulo</strong>: </h4> 
+							<h4>{{anuncio.livro}}</h4>
+						</p> 						
+						<p>
+							<h4> <strong>Proprietario</strong>: </h4> 
+							<h4>{{anuncio.livro.dono}}</h4>
+						</p> 
+						<a href="{% url 'core:detalhe_livro' livro_id=anuncio.livro.pk %}"> Ver mais... </a>
+					</div>					
 				</div>
 				
 				</li>
